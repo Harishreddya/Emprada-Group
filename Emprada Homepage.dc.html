@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#F5F7F6;color:#16302A;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#115244;text-decoration:none}
+a:hover{color:#348CCB}
+*{box-sizing:border-box}
+h1,h2,h3,h4,p{margin:0}
+</style>
+</helmet>
+
+<div style="font-size:16px;line-height:1.55">
+
+<!-- UTILITY BAR -->
+<div style="background:#0B2A24;color:#C9DAD4;font-size:13px">
+  <div style="max-width:1280px;margin:0 auto;padding:8px 32px;display:flex;flex-wrap:wrap;gap:8px 28px;align-items:center;justify-content:space-between">
+    <div style="display:flex;flex-wrap:wrap;gap:6px 24px">
+      <a href="tel:+16305449772" style="color:#C9DAD4">+1 (USA) 630-544-9772</a>
+      <a href="tel:+917760829007" style="color:#C9DAD4">+91 (India) 77608 29007</a>
+      <a href="mailto:sales@empradaminerals.com" style="color:#C9DAD4">sales@empradaminerals.com</a>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px 22px">
+      <a href="Emprada Group Website.dc.html" style="color:#88CEC8;font-weight:600">← Emprada Group</a>
+      <a href="#news" style="color:#C9DAD4">Blog</a>
+      <a href="#infra" style="color:#C9DAD4">Gallery</a>
+      <a href="#reach" style="color:#C9DAD4">Global Client Base</a>
+      <a href="#certs" style="color:#C9DAD4">Certifications</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header style="position:sticky;top:0;z-index:20;background:rgba(255,255,255,0.97);backdrop-filter:blur(8px);border-bottom:1px solid #DDE6E2;box-shadow:{{ headerShadow }}">
+  <div style="max-width:1280px;margin:0 auto;padding:10px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:nowrap">
+    <a href="#top" style="display:flex;flex-direction:column;gap:4px;align-items:flex-start;flex-shrink:0">
+      <img src="assets/emprada-group-logo.svg" alt="Emprada Group" style="height:58px;width:auto;display:block">
+      <span style="font-family:'Zilla Slab',serif;font-weight:600;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#115244;padding-left:2px;white-space:nowrap">Emprada Mines and Minerals</span>
+    </a>
+    <sc-if value="{{ compact }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;gap:12px;align-items:center;flex-shrink:0">
+        <a href="#contact" style="background:#115244;color:#fff;padding:11px 18px;border-radius:2px;font-weight:600;font-size:15px;white-space:nowrap" style-hover="background:#348CCB;color:#fff">Request a Quote</a>
+        <button onClick="{{ toggleMenu }}" aria-label="Menu" style="width:46px;height:46px;border:1px solid #CBD8D3;background:#fff;cursor:pointer;font-size:20px;color:#115244;border-radius:2px">{{ menuIcon }}</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+    <nav style="display:flex;flex-wrap:nowrap;gap:26px;align-items:center;font-size:15px;font-weight:500;white-space:nowrap">
+      <a href="#about" style="color:#16302A">About</a>
+      <a href="#products" style="color:#16302A;display:flex;gap:6px;align-items:center">Barite Products <span style="font-size:10px;color:#4AA49D">▼</span></a>
+      <a href="#quality" style="color:#16302A">Quality Control</a>
+      <a href="#infra" style="color:#16302A">Infrastructure</a>
+      <a href="#process" style="color:#16302A">Packaging &amp; Logistics</a>
+      <a href="#contact" style="color:#16302A">Contact</a>
+      <a href="#contact" style="background:#115244;color:#fff;padding:11px 20px;border-radius:2px;font-weight:600" style-hover="background:#348CCB;color:#fff">Request a Quote</a>
+    </nav>
+    </sc-if>
+  </div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <nav style="border-top:1px solid #DDE6E2;background:#fff;padding:8px 32px 18px;display:flex;flex-direction:column;font-size:16px;font-weight:500">
+      <a href="#about" onClick="{{ closeMenu }}" style="padding:12px 0;border-bottom:1px solid #EDF2F0;color:#16302A">About</a>
+      <a href="#products" onClick="{{ closeMenu }}" style="padding:12px 0;border-bottom:1px solid #EDF2F0;color:#16302A">Barite Products</a>
+      <a href="#quality" onClick="{{ closeMenu }}" style="padding:12px 0;border-bottom:1px solid #EDF2F0;color:#16302A">Quality Control</a>
+      <a href="#infra" onClick="{{ closeMenu }}" style="padding:12px 0;border-bottom:1px solid #EDF2F0;color:#16302A">Infrastructure</a>
+      <a href="#process" onClick="{{ closeMenu }}" style="padding:12px 0;border-bottom:1px solid #EDF2F0;color:#16302A">Packaging &amp; Logistics</a>
+      <a href="#contact" onClick="{{ closeMenu }}" style="padding:12px 0;color:#16302A">Contact</a>
+    </nav>
+  </sc-if>
+  <div style="height:3px;background:linear-gradient(90deg,#115244,#348CCB 53%,#48BA78)"></div>
+</header>
+
+<!-- HERO -->
+<section id="top" data-screen-label="01 Hero">
+  <sc-if value="{{ heroFull }}" hint-placeholder-val="{{ true }}">
+    <div style="position:relative;min-height:680px;background:repeating-linear-gradient(135deg,#0F3730 0 14px,#123E36 14px 28px);color:#fff;display:flex;overflow:hidden">
+      <div style="position:absolute;right:32px;top:28px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.08em;color:#7FB3A6;text-transform:uppercase">[ {{ slide.media }} ]</div>
+      <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,32,27,0.92) 0%,rgba(8,32,27,0.6) 55%,rgba(8,32,27,0.1) 100%)"></div>
+      <div style="position:relative;max-width:1280px;width:100%;margin:0 auto;padding:110px 32px 56px;display:flex;flex-direction:column;justify-content:space-between;gap:56px">
+        <div style="max-width:760px;display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;gap:12px;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#88CEC8">
+            <span style="width:36px;height:2px;background:#48BA78"></span>{{ slide.eyebrow }}
+          </div>
+          <h1 style="font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(44px,6vw,84px);line-height:1.02;letter-spacing:-0.01em;text-wrap:balance">{{ slide.title }}</h1>
+          <p style="font-size:19px;line-height:1.6;color:#D3E3DE;max-width:600px;text-wrap:pretty">{{ slide.body }}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:8px">
+            <a href="#products" style="background:#48BA78;color:#0B2A24;padding:15px 28px;font-weight:600;border-radius:2px" style-hover="background:#65C18D;color:#0B2A24">Explore Barite Grades</a>
+            <a href="#contact" style="border:1px solid rgba(255,255,255,0.5);color:#fff;padding:15px 28px;font-weight:600;border-radius:2px" style-hover="background:#fff;color:#115244">Talk to Sales</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px">
+          <div style="display:flex;gap:10px;align-items:center">
+            <sc-for list="{{ slideDots }}" as="d" hint-placeholder-count="3">
+              <button onClick="{{ d.go }}" style="background:none;border:0;padding:8px 0;cursor:pointer;display:flex;flex-direction:column;gap:8px;align-items:flex-start;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:{{ d.opacity }}">
+                <span>{{ d.num }}</span>
+                <span style="display:block;height:2px;width:72px;background:{{ d.bar }}"></span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.18);min-width:min(520px,100%)">
+            <div style="background:rgba(8,32,27,0.75);padding:18px 22px"><div style="font-family:'Zilla Slab',serif;font-size:30px;font-weight:700">225 ha</div><div style="font-size:13px;color:#A9C6BE">Source mine area</div></div>
+            <div style="background:rgba(8,32,27,0.75);padding:18px 22px"><div style="font-family:'Zilla Slab',serif;font-size:30px;font-weight:700">96%</div><div style="font-size:13px;color:#A9C6BE">BaSO₄ purity, up to</div></div>
+            <div style="background:rgba(8,32,27,0.75);padding:18px 22px"><div style="font-family:'Zilla Slab',serif;font-size:30px;font-weight:700">20+</div><div style="font-size:13px;color:#A9C6BE">Countries supplied</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ heroSplit }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#fff">
+      <div style="max-width:1280px;margin:0 auto;padding:72px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:56px;align-items:center">
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;gap:12px;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#4AA49D"><span style="width:36px;height:2px;background:#48BA78"></span>{{ slide.eyebrow }}</div>
+          <h1 style="font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(42px,5vw,72px);line-height:1.04;color:#0B2A24;text-wrap:balance">{{ slide.title }}</h1>
+          <p style="font-size:19px;color:#51625D;max-width:560px;text-wrap:pretty">{{ slide.body }}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px">
+            <a href="#products" style="background:#115244;color:#fff;padding:15px 28px;font-weight:600;border-radius:2px" style-hover="background:#348CCB;color:#fff">Explore Barite Grades</a>
+            <a href="#contact" style="border:1px solid #115244;color:#115244;padding:15px 28px;font-weight:600;border-radius:2px">Talk to Sales</a>
+          </div>
+          <div style="display:flex;gap:10px">
+            <sc-for list="{{ slideDots }}" as="d" hint-placeholder-count="3">
+              <button onClick="{{ d.go }}" style="border:0;cursor:pointer;height:4px;width:48px;padding:0;background:{{ d.barDark }}"></button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="aspect-ratio:4/3.4;background:repeating-linear-gradient(135deg,#E3EBE8 0 12px,#EDF2F0 12px 24px);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6B807A;text-transform:uppercase;letter-spacing:0.06em;border-radius:2px;padding:24px;text-align:center">[ {{ slide.media }} ]</div>
+      </div>
+    </div>
+  </sc-if>
+</section>
+
+<!-- CERTIFICATION STRIP -->
+<section id="certs" style="background:#fff;border-bottom:1px solid #DDE6E2">
+  <div style="max-width:1280px;margin:0 auto;padding:26px 32px;display:flex;flex-wrap:wrap;gap:16px 40px;align-items:center;justify-content:space-between">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#51625D">Certified &amp; accredited</div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px 32px;align-items:center">
+      <sc-for list="{{ certs }}" as="c" hint-placeholder-count="6">
+        <div style="display:flex;gap:10px;align-items:center">
+          <div style="width:40px;height:40px;border-radius:50%;border:1px dashed #9FB8B0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#6B807A">LOGO</div>
+          <div style="font-weight:600;font-size:14px;color:#16302A;line-height:1.25">{{ c }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" data-screen-label="02 About" style="background:#F5F7F6">
+  <div style="max-width:1280px;margin:0 auto;padding:110px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:64px;align-items:center">
+    <div style="position:relative">
+      <div style="aspect-ratio:5/4;background:repeating-linear-gradient(135deg,#E3EBE8 0 12px,#EDF2F0 12px 24px);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6B807A;text-transform:uppercase;letter-spacing:0.06em;text-align:center;padding:24px">[ Photo · plant / team at Mangampet ]</div>
+      <div style="position:absolute;right:-16px;bottom:-28px;background:#115244;color:#fff;padding:24px 28px;max-width:260px;box-shadow:0 18px 40px rgba(11,42,36,0.25)">
+        <div style="font-family:'Zilla Slab',serif;font-size:40px;font-weight:700;line-height:1">Since 20XX</div>
+        <div style="font-size:14px;color:#BFD7CF;margin-top:6px">Year founded — placeholder</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#4AA49D">Who we are</div>
+      <h2 style="font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(34px,3.6vw,52px);line-height:1.08;color:#0B2A24;text-wrap:balance">Manufacturer, exporter and supplier of drilling-grade barite.</h2>
+      <p style="font-size:18px;color:#51625D;text-wrap:pretty">Sourcing directly from the world’s single largest barite mine, owned by the Govt. of Andhra Pradesh, we deliver API 13A barite to oil &amp; gas operators across the globe.</p>
+      <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+        <div style="border:1px dashed #9FB8B0;padding:16px 18px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#6B807A;line-height:1.7">CONTENT: 2–3 short paragraphs — company story, group structure (Emprada Group), mission &amp; vision.</div>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:#DDE6E2;border:1px solid #DDE6E2;margin-top:6px">
+        <div style="background:#fff;padding:18px 20px"><div style="font-weight:600">Mission</div><div style="font-size:14px;color:#6B807A">One line placeholder</div></div>
+        <div style="background:#fff;padding:18px 20px"><div style="font-weight:600">Vision</div><div style="font-size:14px;color:#6B807A">One line placeholder</div></div>
+      </div>
+      <a href="#about" style="font-weight:600;display:flex;gap:10px;align-items:center;margin-top:4px">About Emprada <span style="color:#48BA78">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section data-screen-label="03 Capabilities" style="background:#0B2A24;color:#fff;position:relative;overflow:hidden">
+  <div style="position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#115244,#348CCB 53%,#48BA78)"></div>
+  <div style="max-width:1280px;margin:0 auto;padding:96px 32px;display:flex;flex-direction:column;gap:48px">
+    <div style="display:flex;flex-wrap:wrap;gap:20px 48px;justify-content:space-between;align-items:flex-end">
+      <div style="display:flex;flex-direction:column;gap:14px;max-width:640px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#88CEC8">Our capabilities</div>
+        <h2 style="font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(32px,3.4vw,48px);line-height:1.1;text-wrap:balance">Scale built for continuous global supply.</h2>
+      </div>
+      <p style="max-width:420px;color:#A9C6BE;font-size:16px">Animated counters on scroll — final figures to be supplied.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.14)">
+      <sc-for list="{{ stats }}" as="s" hint-placeholder-count="6">
+        <div style="background:#0B2A24;padding:32px 26px;display:flex;flex-direction:column;gap:10px" style-hover="background:#0F3730">
+          <div style="font-family:'Zilla Slab',serif;font-weight:700;font-size:44px;line-height:1;color:#fff">{{ s.v }}<span style="color:#48BA78;font-size:22px;margin-left:4px">{{ s.u }}</span></div>
+          <div style="font-size:14px;color:#A9C6BE">{{ s.l }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" data-screen-label="04 Products" style="background:#fff">
+  <div style="max-width:1280px;margin:0 auto;padding:110px 32px;display:flex;flex-direction:column;gap:44px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px 64px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#4AA49D">Barite products</div>
+        <h2 style="font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(34px,3.6vw,52px);line-height:1.08;color:#0B2A24;text-wrap:balance">API 13A barite, in the grade your well needs.</h2>
+      </div>
+      <p style="font-size:17px;color:#51625D;text-wrap:pretty">High-quality barium sulfate (BaSO₄), micronized to API 13A, chemically inert to drilling fluid additives — used to increase mud density in oil and water-based systems.</p>
+    </div>
+    <div style="display:flex;gap:0;border-bottom:1px solid #DDE6E2">
+      <button onClick="{{ setPowder }}" style="background:none;border:0;border-bottom:3px solid {{ powderLine }};margin-bottom:-1px;padding:14px 22px;font-family:'IBM Plex Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer;color:{{ powderColor }}">Barite Powder</button>
+      <button onClick="{{ setLumps }}" style="background:none;border:0;border-bottom:3px solid {{ lumpsLine }};margin-bottom:-1px;padding:14px 22px;font-family:'IBM Plex Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer;color:{{ lumpsColor }}">Barite Lumps</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px">
+      <sc-for list="{{ products }}" as="p" hint-placeholder-count="4">
+        <a href="#products" style="display:flex;flex-direction:column;border:1px solid #DDE6E2;background:#fff;color:#16302A;transition:transform .2s,box-shadow .2s" style-hover="transform:translateY(-4px);box-shadow:0 18px 36px rgba(11,42,36,0.12);color:#16302A">
+          <div style="aspect-ratio:4/3;background:repeating-linear-gradient(135deg,#E3EBE8 0 12px,#EDF2F0 12px 24px);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6B807A;text-transform:uppercase;letter-spacing:0.06em">[ {{ p.img }} ]</div>
+          <div style="padding:22px 22px 24px;display:flex;flex-direction:column;gap:8px;flex:1">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+              <div style="font-family:'Zilla Slab',serif;font-weight:700;font-size:36px;line-height:1;color:#115244">{{ p.sg }}<span style="font-size:16px;color:#4AA49D;margin-left:4px">SG</span></div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#51625D;border:1px solid #DDE6E2;padding:3px 8px;white-space:nowrap;flex-shrink:0">{{ p.tag }}</div>
+            </div>
+            <div style="font-weight:600;font-size:16px">{{ p.name }}</div>
+            <div style="font-size:14px;color:#6B807A;flex:1">{{ p.desc }}</div>
+            <div style="font-size:14px;font-weight:600;color:#115244;margin-top:8px">View specification →</div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section data-screen-label="05 Industries" style="background:#F5F7F6">
+  <div style="max-width:1280px;margin:0 auto;padding:110px 32px;display:flex;flex-direction:column;gap:44px">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:720px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#4AA49D">Industries we serve</div>
+      <h2 style="font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(34px,3.6vw,52px);line-height:1.08;color:#0B2A24;text-wrap:balance">From the drill floor to the factory floor.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));grid-auto-rows:260px;gap:16px">
+      <sc-for list="{{ industries }}" as="ind" hint-placeholder-count="4">
+        <div style="position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,#123E36 0 14px,#0F3730 14px 28px);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:26px;grid-column:{{ ind.span }}">
+          <div style="position:absolute;top:20px;left:26px;right:26px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7FB3A6;text-transform:uppercase;letter-spacing:0.06em">[ {{ ind.img }} ]</div>
+          <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,32,27,0.85),rgba(8,32,27,0) 65%)"></div>
+          <div style="position:relative;display:flex;flex-direction:column;gap:6px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#48BA78">{{ ind.n }}</div>
+            <div style="font-family:'Zilla Slab',serif;font-weight:700;font-size:28px;line-height:1.1">{{ ind.t }}</div>
+            <div style="font-size:14px;color:#C9DAD4">{{ ind.d }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" data-screen-label="06 Process" style="background:#fff">
+  <div style="max-width:1280px;margin:0 auto;padding:110px 32px;display:flex;flex-direction:column;gap:56px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px 64px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#4AA49D">Mine to port</div>
+        <h2 style="font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(34px,3.6vw,52px);line-height:1.08;color:#0B2A24;text-wrap:balance">Checked at every step before it reaches you.</h2>
+      </div>
+      <p style="font-size:17px;color:#51625D">Every consignment is tested, packed, independently inspected and shipped on the terms you choose.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:0;border-top:1px solid #DDE6E2">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+        <div style="padding:32px 28px 8px 0;display:flex;flex-direction:column;gap:14px;position:relative">
+          <div style="position:absolute;top:-6px;left:0;width:11px;height:11px;border-radius:50%;background:#48BA78;box-shadow:0 0 0 5px #E4F4EA"></div>
+          <div style="font-family:'Zilla Slab',serif;font-weight:700;font-size:56px;line-height:1;color:#DCE8E4">{{ st.n }}</div>
+          <div style="font-family:'Zilla Slab',serif;font-weight:700;font-size:24px;color:#0B2A24">{{ st.t }}</div>
+          <div style="font-size:15px;color:#51625D;text-wrap:pretty">{{ st.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- WHY EMPRADA / INFRASTRUCTURE -->
+<section id="infra" data-screen-label="07 Why Emprada" style="background:#F5F7F6">
+  <div id="quality" style="max-width:1280px;margin:0 auto;padding:110px 32px;display:flex;flex-direction:column;gap:44px">
+    <div style="display:flex;flex-wrap:wrap;gap:20px 48px;justify-content:space-between;align-items:flex-end">
+      <div style="display:flex;flex-direction:column;gap:14px;max-width:680px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#4AA49D">Why Emprada</div>
+        <h2 style="font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(34px,3.6vw,52px);line-height:1.08;color:#0B2A24;text-wrap:balance">Quality, infrastructure and people you can audit.</h2>
+      </div>
+      <a href="#infra" style="font-weight:600;display:flex;gap:10px;align-items:center">See our infrastructure <span style="color:#48BA78">→</span></a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:16px">
+      <sc-for list="{{ why }}" as="w" hint-placeholder-count="6">
+        <div style="background:#fff;border:1px solid #DDE6E2;display:grid;grid-template-columns:120px minmax(0,1fr);min-height:170px" style-hover="border-color:#4AA49D">
+          <div style="background:repeating-linear-gradient(135deg,#E3EBE8 0 10px,#EDF2F0 10px 20px);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B807A;text-transform:uppercase;text-align:center;padding:8px">[ {{ w.img }} ]</div>
+          <div style="padding:22px 24px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-family:'Zilla Slab',serif;font-weight:700;font-size:21px;color:#0B2A24">{{ w.t }}</div>
+            <div style="font-size:14.5px;color:#51625D;text-wrap:pretty">{{ w.d }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- GLOBAL REACH -->
+<section id="reach" data-screen-label="08 Global Reach" style="background:#fff">
+  <div style="max-width:1280px;margin:0 auto;padding:110px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:56px;align-items:center">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#4AA49D">Global client base</div>
+      <h2 style="font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(34px,3.6vw,52px);line-height:1.08;color:#0B2A24;text-wrap:balance">Shipping from Indian ports to 20+ countries.</h2>
+      <p style="font-size:17px;color:#51625D">FOB and CIF terms, among others, from Indian seaports.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">
+        <sc-for list="{{ regions }}" as="r" hint-placeholder-count="5">
+          <span style="border:1px solid #DDE6E2;padding:8px 14px;font-size:14px;color:#16302A;border-radius:999px">{{ r }}</span>
+        </sc-for>
+      </div>
+    </div>
+    <div style="aspect-ratio:16/10;background:repeating-linear-gradient(135deg,#E3EBE8 0 12px,#EDF2F0 12px 24px);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6B807A;text-transform:uppercase;letter-spacing:0.06em;text-align:center;padding:24px;grid-column:span 1">[ World map · export destinations + trade routes ]</div>
+  </div>
+</section>
+
+<!-- SUSTAINABILITY -->
+<section data-screen-label="09 Sustainability" style="background:#115244;color:#fff">
+  <div style="max-width:1280px;margin:0 auto;padding:100px 32px;display:flex;flex-direction:column;gap:44px">
+    <div style="display:flex;flex-wrap:wrap;gap:20px 48px;justify-content:space-between;align-items:flex-end">
+      <div style="display:flex;flex-direction:column;gap:14px;max-width:680px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#97D4C5">Responsibility</div>
+        <h2 style="font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(32px,3.4vw,48px);line-height:1.1;text-wrap:balance">Responsible mining, stronger communities.</h2>
+      </div>
+      <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+        <div style="border:1px dashed rgba(255,255,255,0.4);padding:12px 16px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#BFD7CF;max-width:380px">CONTENT: confirm initiatives — environment, safety (ISO 14001 / 45001), community &amp; CSR.</div>
+      </sc-if>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px">
+      <sc-for list="{{ esg }}" as="e" hint-placeholder-count="3">
+        <div style="display:flex;flex-direction:column;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14)">
+          <div style="aspect-ratio:16/9;background:repeating-linear-gradient(135deg,rgba(255,255,255,0.06) 0 12px,rgba(255,255,255,0.02) 12px 24px);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#97D4C5;text-transform:uppercase">[ {{ e.img }} ]</div>
+          <div style="padding:24px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-family:'Zilla Slab',serif;font-weight:700;font-size:23px">{{ e.t }}</div>
+            <div style="font-size:14.5px;color:#BFD7CF">{{ e.d }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news" data-screen-label="10 News" style="background:#F5F7F6">
+  <div style="max-width:1280px;margin:0 auto;padding:110px 32px;display:flex;flex-direction:column;gap:44px">
+    <div style="display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:flex-end">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#4AA49D">Insights &amp; news</div>
+        <h2 style="font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(34px,3.6vw,52px);line-height:1.08;color:#0B2A24">From the blog</h2>
+      </div>
+      <a href="#news" style="font-weight:600;display:flex;gap:10px;align-items:center">All articles <span style="color:#48BA78">→</span></a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px">
+      <sc-for list="{{ news }}" as="n" hint-placeholder-count="3">
+        <a href="#news" style="display:flex;flex-direction:column;gap:16px;color:#16302A" style-hover="color:#115244">
+          <div style="aspect-ratio:16/10;background:repeating-linear-gradient(135deg,#E3EBE8 0 12px,#EDF2F0 12px 24px);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6B807A;text-transform:uppercase">[ Article image ]</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4AA49D;text-transform:uppercase;letter-spacing:0.08em">{{ n.c }} · DD Mon YYYY</div>
+          <div style="font-family:'Zilla Slab',serif;font-weight:700;font-size:23px;line-height:1.2">{{ n.t }}</div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" data-screen-label="11 Contact" style="background:#fff">
+  <div style="max-width:1280px;margin:0 auto;padding:110px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#4AA49D">Contact us</div>
+      <h2 style="font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(34px,3.6vw,52px);line-height:1.08;color:#0B2A24;text-wrap:balance">Request a quote or a sample.</h2>
+      <p style="font-size:17px;color:#51625D">Tell us the grade, quantity and destination port — our sales team responds within one business day.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:12px">
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="font-weight:600;color:#115244">Headquarters</div><div style="font-size:14.5px;color:#51625D">4/323, Main Road, Rajampet, Annamayya (Dt), Andhra Pradesh 516115, India</div></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="font-weight:600;color:#115244">Production Plant</div><div style="font-size:14.5px;color:#51625D">Near Bommavaram Cross, Govindampalle, Mangampet, Andhra Pradesh 516105, India</div></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="font-weight:600;color:#115244">Phone</div><div style="font-size:14.5px;color:#51625D">+1 (USA) 630-544-9772<br>+91 (India) 77608 29007</div></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><div style="font-weight:600;color:#115244">Email</div><div style="font-size:14.5px;color:#51625D">info@empradaminerals.com<br>sales@empradaminerals.com</div></div>
+      </div>
+    </div>
+    <div style="background:#F5F7F6;border:1px solid #DDE6E2;padding:36px;display:flex;flex-direction:column;gap:16px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+        <sc-for list="{{ fields }}" as="f" hint-placeholder-count="6">
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:#16302A">{{ f }}
+            <input style="height:46px;border:1px solid #CBD8D3;background:#fff;padding:0 14px;font:inherit;font-weight:400;font-size:15px;border-radius:2px">
+          </label>
+        </sc-for>
+      </div>
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600">Message
+        <textarea rows="4" style="border:1px solid #CBD8D3;background:#fff;padding:12px 14px;font:inherit;font-weight:400;font-size:15px;border-radius:2px;resize:vertical"></textarea>
+      </label>
+      <button style="align-self:flex-start;background:#115244;color:#fff;border:0;padding:15px 30px;font:inherit;font-weight:600;cursor:pointer;border-radius:2px" style-hover="background:#348CCB">Send Enquiry</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#0B2A24;color:#C9DAD4">
+  <div style="height:3px;background:linear-gradient(90deg,#115244,#348CCB 53%,#48BA78)"></div>
+  <div style="max-width:1280px;margin:0 auto;padding:72px 32px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px">
+    <div style="display:flex;flex-direction:column;gap:14px;grid-column:span 1">
+      <img src="assets/emprada-group-logo-white.svg" alt="Emprada Group" style="height:64px;width:auto;align-self:flex-start">
+      <div style="font-family:'Zilla Slab',serif;font-weight:600;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:#fff">Emprada Mines and Minerals</div>
+      <div style="font-size:14px;color:#A9C6BE">API 13A barite, sourced from Andhra Pradesh, India.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">
+        <a href="https://www.linkedin.com/company/emprada-mines-and-minerals/" style="color:#C9DAD4;border:1px solid rgba(255,255,255,0.2);padding:6px 10px;font-size:12px">LinkedIn</a>
+        <a href="https://www.facebook.com/empradaminesandminerals" style="color:#C9DAD4;border:1px solid rgba(255,255,255,0.2);padding:6px 10px;font-size:12px">Facebook</a>
+        <a href="https://twitter.com/Empradaminerals" style="color:#C9DAD4;border:1px solid rgba(255,255,255,0.2);padding:6px 10px;font-size:12px">X</a>
+        <a href="https://www.youtube.com/channel/UCKCqbaWodE_QzGm32pNpB4Q" style="color:#C9DAD4;border:1px solid rgba(255,255,255,0.2);padding:6px 10px;font-size:12px">YouTube</a>
+        <a href="https://www.instagram.com/emprada.minerals/" style="color:#C9DAD4;border:1px solid rgba(255,255,255,0.2);padding:6px 10px;font-size:12px">Instagram</a>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+      <div style="font-weight:600;color:#fff;margin-bottom:4px">Company</div>
+      <a href="#about" style="color:#C9DAD4">About us</a><a href="#quality" style="color:#C9DAD4">Quality Control</a><a href="#infra" style="color:#C9DAD4">Infrastructure</a><a href="#process" style="color:#C9DAD4">Packaging &amp; Logistics</a><a href="#certs" style="color:#C9DAD4">Certifications</a><a href="#contact" style="color:#C9DAD4">Contact</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+      <div style="font-weight:600;color:#fff;margin-bottom:4px">Barite Powder</div>
+      <a href="#products" style="color:#C9DAD4">API Grade 4.20 SG</a><a href="#products" style="color:#C9DAD4">API Grade 4.10 SG</a><a href="#products" style="color:#C9DAD4">Powder / Cake 4.3+ SG</a><a href="#products" style="color:#C9DAD4">Powder 4.0 SG</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+      <div style="font-weight:600;color:#fff;margin-bottom:4px">Barite Lumps</div>
+      <a href="#products" style="color:#C9DAD4">Lumps 4.2 SG</a><a href="#products" style="color:#C9DAD4">Lumps 4.1 SG</a><a href="#products" style="color:#C9DAD4">Lumps 4.0 SG</a><a href="#products" style="color:#C9DAD4">Lumps 3.95 – 3.85+ SG</a>
+    </div>
+  </div>
+  <div style="max-width:1280px;margin:0 auto;padding:22px 32px 30px;border-top:1px solid rgba(255,255,255,0.12);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:13px;color:#88A79F">
+    <div>© 2026 Emprada Mines and Minerals Pvt Ltd · An Emprada Group company</div>
+    <div style="display:flex;gap:20px"><a href="#top" style="color:#88A79F">Privacy Policy</a><a href="#top" style="color:#88A79F">Terms</a></div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Full-bleed&quot;,&quot;Split&quot;],&quot;default&quot;:&quot;Full-bleed&quot;,&quot;tsType&quot;:&quot;'Full-bleed'|'Split'&quot;},&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { slide: 0, tab: 'powder', scrolled: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, menuOpen: false };
+  slides = [
+    { eyebrow: 'An API 13A certified company', title: 'Expert in barite sourcing.', body: 'Directly sourcing from the world’s single largest barite mine — 225 hectares in Andhra Pradesh, owned and maintained by the Government.', media: 'Hero video · aerial of Mangampet barite mine' },
+    { eyebrow: 'Up to 96% BaSO₄', title: 'Drilling-grade barite, tested to API 13A.', body: 'Every lot verified in our in-house API 13A laboratory before it leaves the plant.', media: 'Hero image · in-house laboratory' },
+    { eyebrow: 'Supplying 20+ countries', title: 'From Andhra Pradesh to the world’s oil fields.', body: 'Jumbo bags to 25 kg sacks, SGS-inspected, shipped FOB or CIF from Indian seaports.', media: 'Hero image · port loading / logistics' }
+  ];
+  componentDidMount() {
+    this.timer = setInterval(() => this.setState(s => ({ slide: (s.slide + 1) % 3 })), 6500);
+    this.onScroll = () => { const sc = window.scrollY > 40; if (sc !== this.state.scrolled) this.setState({ scrolled: sc }); };
+    window.addEventListener('scroll', this.onScroll);
+    this.onResize = () => this.setState({ vw: window.innerWidth });
+    window.addEventListener('resize', this.onResize);
+  }
+  componentWillUnmount() { clearInterval(this.timer); window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onResize); }
+  go(i) { clearInterval(this.timer); this.setState({ slide: i }); }
+  renderVals() {
+    const { slide, tab, scrolled } = this.state;
+    const layout = this.props.heroLayout ?? 'Full-bleed';
+    const powder = [
+      { sg: '4.20', tag: 'API 13A §7', name: 'Barite Powder 4.20 SG', desc: 'Min. 90% BaSO₄, specific gravity ≥ 4.20 g/ml.', img: 'Powder close-up' },
+      { sg: '4.15', tag: 'Custom', name: 'Barite Powder 4.15 SG', desc: 'Specification summary — placeholder.', img: 'Powder close-up' },
+      { sg: '4.10', tag: 'API 13A §20', name: 'Barite Powder 4.10 SG', desc: 'Min. 90% BaSO₄, specific gravity ≥ 4.10 g/ml.', img: 'Powder close-up' },
+      { sg: '4.00', tag: 'Industrial', name: 'Barite Powder 4.0 SG', desc: 'Specification summary — placeholder.', img: 'Powder close-up' }
+    ];
+    const lumps = [
+      { sg: '4.20', tag: 'Lumps', name: 'Barite Lumps 4.20 SG', desc: 'Size range & purity — placeholder.', img: 'Lumps photo' },
+      { sg: '4.10', tag: 'Lumps', name: 'Barite Lumps 4.10 SG', desc: 'Size range & purity — placeholder.', img: 'Lumps photo' },
+      { sg: '4.00', tag: 'Lumps', name: 'Barite Lumps 4.0 SG', desc: 'Size range & purity — placeholder.', img: 'Lumps photo' },
+      { sg: '3.95', tag: 'Lumps', name: 'Barite Lumps 3.95 – 3.85+ SG', desc: 'Size range & purity — placeholder.', img: 'Lumps photo' }
+    ];
+    return {
+      wide: this.state.vw >= 1100,
+      compact: this.state.vw < 1100,
+      menuOpen: this.state.vw < 1100 && this.state.menuOpen,
+      menuIcon: this.state.menuOpen ? '✕' : '☰',
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      heroFull: layout === 'Full-bleed',
+      heroSplit: layout === 'Split',
+      showNotes: this.props.showNotes ?? true,
+      headerShadow: scrolled ? '0 6px 24px rgba(11,42,36,0.08)' : 'none',
+      slide: this.slides[slide],
+      slideDots: this.slides.map((_, i) => ({
+        num: '0' + (i + 1), go: () => this.go(i),
+        opacity: i === slide ? 1 : 0.55,
+        bar: i === slide ? '#48BA78' : 'rgba(255,255,255,0.35)',
+        barDark: i === slide ? '#115244' : '#CFDCD7'
+      })),
+      certs: ['API 13A', 'ISO 9001:2015', 'ISO 14001:2015', 'ISO 45001:2018', '3 Star Export House', 'CAPEXIL'],
+      stats: [
+        { v: 'XX,XXX', u: 'MT', l: 'Barite production / month' },
+        { v: 'X.X', u: 'M MT', l: 'Barite exports in 2024' },
+        { v: 'XXX', u: '+', l: 'Workforce' },
+        { v: '80', u: '+', l: 'Acres of production plant' },
+        { v: '6', u: '', l: 'Manufacturing units' },
+        { v: '20', u: '+', l: 'Countries supplied' }
+      ],
+      products: tab === 'powder' ? powder : lumps,
+      setPowder: () => this.setState({ tab: 'powder' }),
+      setLumps: () => this.setState({ tab: 'lumps' }),
+      powderLine: tab === 'powder' ? '#115244' : 'transparent',
+      lumpsLine: tab === 'lumps' ? '#115244' : 'transparent',
+      powderColor: tab === 'powder' ? '#115244' : '#6B807A',
+      lumpsColor: tab === 'lumps' ? '#115244' : '#6B807A',
+      industries: [
+        { n: '01', t: 'Oil & Gas Drilling', d: 'Weighting agent for drilling muds.', img: 'Offshore / onshore rig', span: 'span 2' },
+        { n: '02', t: 'Paints & Coatings', d: 'One-line description placeholder.', img: 'Industry image', span: 'span 1' },
+        { n: '03', t: 'Chemicals', d: 'One-line description placeholder.', img: 'Industry image', span: 'span 1' },
+        { n: '04', t: 'Industry name', d: 'One-line description placeholder.', img: 'Industry image', span: 'span 2' }
+      ],
+      steps: [
+        { n: '01', t: 'Testing & QC', d: 'Every lot tested in compliance with API 13A specifications.' },
+        { n: '02', t: 'Packaging', d: 'Jumbo bags (1,500 / 1,000 kg), 50 kg and 25 kg bags to client needs.' },
+        { n: '03', t: 'Pre-shipment inspection', d: 'Third-party inspection by SGS and others, with clearance certificate.' },
+        { n: '04', t: 'Shipping', d: 'FOB, CIF and other terms from Indian seaports.' }
+      ],
+      why: [
+        { t: 'Industry Standards', d: 'ISO 9001, 14001 and 45001 certified; 3 Star Export House; CAPEXIL.', img: 'Certificates' },
+        { t: 'Quality Comes First', d: 'State-of-the-art API 13A equipped laboratory for QC and analysis.', img: 'Lab' },
+        { t: 'Assuring the Best', d: 'Pre-shipment inspection by SGS, Bureau Veritas, Intertek as required.', img: 'Inspection' },
+        { t: 'Production Plant', d: '6 production units across 80+ acres for end-to-end operations.', img: 'Plant' },
+        { t: 'Warehouse', d: '1,00,000 sq ft covered warehouse and 50+ acres of open storage.', img: 'Warehouse' },
+        { t: 'Human Capital', d: '50+ qualified professionals and 100+ supervisory and ground staff.', img: 'Team' }
+      ],
+      regions: ['Middle East', 'North America', 'Africa', 'South-East Asia', 'Region placeholder'],
+      esg: [
+        { t: 'Environment', d: 'Short summary of environmental practices — placeholder.', img: 'Reclamation / green belt' },
+        { t: 'Health & Safety', d: 'Short summary of safety programmes — placeholder.', img: 'Safety on site' },
+        { t: 'Community', d: 'Short summary of CSR initiatives — placeholder.', img: 'Community programme' }
+      ],
+      news: [
+        { c: 'Industry', t: 'Article headline placeholder — barite market outlook' },
+        { c: 'Company', t: 'Article headline placeholder — company news' },
+        { c: 'Guide', t: 'Article headline placeholder — choosing the right SG grade' }
+      ],
+      fields: ['Full name', 'Company', 'Email', 'Phone', 'Grade required', 'Quantity & destination port']
+    };
+  }
+}
+</script>
+</body>
+</html>
