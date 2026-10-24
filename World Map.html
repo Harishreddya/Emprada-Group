@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emprada Global Presence Map</title>
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%;background:#0C2A30;overflow:hidden;font-family:'IBM Plex Sans',system-ui,sans-serif}
+#map{position:absolute;inset:0}
+svg{display:block;width:100%;height:100%}
+.tip{position:absolute;pointer-events:none;background:#fff;color:#0C2A30;font-size:13px;font-weight:600;padding:7px 11px;border-radius:2px;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;transition:opacity .15s;white-space:nowrap}
+.tip span{display:block;font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:11px;color:#4AA49D;text-transform:uppercase;letter-spacing:.08em}
+.legend{position:absolute;left:20px;bottom:18px;display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:#BFD6D6}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:7px;vertical-align:-1px}
+@keyframes pulse{0%{r:5;opacity:.9}100%{r:22;opacity:0}}
+.pulse{animation:pulse 2.2s ease-out infinite}
+@keyframes dash{to{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div class="tip" id="tip"></div>
+<div class="legend">
+  <div><i style="background:#48BA78;border-radius:50%"></i>Headquarters &amp; operations</div>
+  <div><i style="background:#2E7FA8"></i>Export markets</div>
+  <div><i style="background:#88CEC8;border-radius:50%"></i>Sales office</div>
+</div>
+<script>
+// EDIT HERE — ISO numeric codes (world-atlas ids). Confirm list with Emprada sales team.
+const HQ = { id: '356', name: 'India', role: 'Headquarters · Mine · Plant', coord: [79.1, 14.3] };
+const OFFICES = [{ id: '840', name: 'United States', role: 'Sales office', coord: [-88.2, 41.8] }];
+const MARKETS = {
+  '784':'United Arab Emirates','682':'Saudi Arabia','512':'Oman','414':'Kuwait','634':'Qatar','368':'Iraq','048':'Bahrain',
+  '818':'Egypt','434':'Libya','012':'Algeria','566':'Nigeria','024':'Angola','792':'Turkey','398':'Kazakhstan',
+  '458':'Malaysia','360':'Indonesia','764':'Thailand','704':'Vietnam','050':'Bangladesh','144':'Sri Lanka','036':'Australia',
+  '840':'United States','124':'Canada','484':'Mexico','076':'Brazil'
+};
+const map = document.getElementById('map'), tip = document.getElementById('tip');
+let world;
+function draw() {
+  const w = map.clientWidth, h = map.clientHeight;
+  map.innerHTML = '';
+  const svg = d3.select(map).append('svg').attr('viewBox', `0 0 ${w} ${h}`);
+  const land = topojson.feature(world, world.objects.countries);
+  land.features = land.features.filter(f => f.id !== '010');
+  const proj = d3.geoNaturalEarth1().fitExtent([[-20, -10], [w + 20, h - 20]], land);
+  const path = d3.geoPath(proj);
+  const fill = d => d.id === HQ.id ? '#48BA78' : MARKETS[d.id] ? '#2E7FA8' : '#17424A';
+  svg.append('g').selectAll('path').data(land.features).join('path')
+    .attr('d', path).attr('fill', fill).attr('stroke', '#0C2A30').attr('stroke-width', 0.5)
+    .style('cursor', d => (MARKETS[d.id] || d.id === HQ.id) ? 'pointer' : 'default')
+    .on('mousemove', (e, d) => {
+      const n = d.id === HQ.id ? HQ.name : MARKETS[d.id]; if (!n) { tip.style.opacity = 0; return; }
+      const role = d.id === HQ.id ? HQ.role : (OFFICES.find(o => o.id === d.id) ? 'Export market · Sales office' : 'Export market');
+      tip.innerHTML = `<span>${role}</span>${n}`; tip.style.opacity = 1;
+      tip.style.left = Math.min(e.clientX + 14, w - tip.offsetWidth - 8) + 'px'; tip.style.top = (e.clientY - 44) + 'px';
+      d3.select(e.currentTarget).attr('fill', '#65C18D');
+    })
+    .on('mouseleave', (e, d) => { tip.style.opacity = 0; d3.select(e.currentTarget).attr('fill', fill(d)); });
+  const centroid = id => { const f = land.features.find(x => x.id === id); return f ? d3.geoCentroid(f) : null; };
+  const arcs = svg.append('g');
+  Object.keys(MARKETS).forEach((id, i) => {
+    let c = centroid(id); if (!c) return;
+    if (id === '840') c = [-95, 38]; if (id === '124') c = [-100, 55];
+    const a = proj(HQ.coord), b = proj(c);
+    const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2 - Math.hypot(b[0] - a[0], b[1] - a[1]) * 0.28;
+    const p = arcs.append('path').attr('d', `M${a}Q${mx},${my} ${b}`).attr('fill', 'none')
+      .attr('stroke', 'url(#g)').attr('stroke-width', 1.1).attr('opacity', 0.75);
+    const L = p.node().getTotalLength();
+    p.attr('stroke-dasharray', L).attr('stroke-dashoffset', L).style('animation', `dash 1.6s ${i * 0.06}s ease-out forwards`);
+    arcs.append('circle').attr('cx', b[0]).attr('cy', b[1]).attr('r', 2.4).attr('fill', '#BFE6F5');
+  });
+  const defs = svg.append('defs').append('linearGradient').attr('id', 'g');
+  defs.append('stop').attr('offset', '0').attr('stop-color', '#48BA78');
+  defs.append('stop').attr('offset', '1').attr('stop-color', '#7CC6EE');
+  OFFICES.forEach(o => { const p = proj(o.coord); svg.append('circle').attr('cx', p[0]).attr('cy', p[1]).attr('r', 5).attr('fill', '#88CEC8').attr('stroke', '#0C2A30').attr('stroke-width', 1.5); });
+  const hq = proj(HQ.coord);
+  svg.append('circle').attr('class', 'pulse').attr('cx', hq[0]).attr('cy', hq[1]).attr('r', 5).attr('fill', 'none').attr('stroke', '#48BA78').attr('stroke-width', 2);
+  svg.append('circle').attr('cx', hq[0]).attr('cy', hq[1]).attr('r', 6).attr('fill', '#48BA78').attr('stroke', '#fff').attr('stroke-width', 2);
+}
+fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r => r.json()).then(t => { world = t; draw(); });
+let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => world && draw(), 150); });
+</script>
+</body>
+</html>
